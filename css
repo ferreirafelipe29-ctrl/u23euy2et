@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Configurações Globais e Resets
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f4f8;
+    color: #1a202c;
+    padding-bottom: 60px; /* Evita que o footer fixo tape o conteúdo */
+}
+
+/* ==========================================================================
+   Cabeçalho (Header)
+   ========================================================================== */
+header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   Conteúdo Principal (Main)
+   ========================================================================== */
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #1e3a8a;
+    font-size: 1.5rem;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+p {
+    margin-bottom: 16px;
+    color: #4a5568;
+    font-size: 1.05rem;
+}
+
+code {
+    background-color: #edf2f7;
+    color: #e53e3e;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Componentes (Botões)
+   ========================================================================== */
+.botao {
+    display: inline-block;
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 12px 24px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    transition: all 0.2s ease-in-out;
+    margin-top: 15px;
+}
+
+.botao:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px -1px rgba(37, 99, 235, 0.3);
+}
+
+.botao:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Rodapé (Footer)
+   ========================================================================== */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0f172a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.875rem;
+    border-top: 1px solid #334155;
+}
+
+footer p {
+    color: #94a3b8;
+    margin: 0;
+}
