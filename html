@@ -1,100 +1,184 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Minha Página Web</title>
+    <title>Mapa Conceitual Interativo</title>
     <style>
-        /* Estilos CSS Básicos */
+        :root {
+            --bg-color: #f4f7f6;
+            --line-color: #b2bec3;
+            --primary-node: #6c5ce7;
+            --secondary-node: #00cec9;
+            --tertiary-node: #fab1a0;
+            --text-light: #ffffff;
+            --text-dark: #2d3436;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            background-color: var(--bg-color);
             margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-
-        header {
-            background-color: #2c3e50;
-            color: #ffffff;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        main {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 20px;
-            background: #ffffff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            border-radius: 8px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
-            margin: 0;
-            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
         }
 
-        h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 8px;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        .botao {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        .botao:hover {
-            background-color: #2980b9;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #2c3e50;
-            color: white;
-            position: fixed;
-            left: 0;
-            bottom: 0;
+        /* Estrutura do Mapa */
+        .map-container {
+            display: flex;
+            justify-content: center;
             width: 100%;
-            font-size: 0.9rem;
+        }
+
+        .tree ul {
+            padding-top: 20px; 
+            position: relative;
+            transition: all 0.5s;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tree li {
+            float: left; 
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 10px 0 10px;
+            transition: all 0.5s;
+        }
+
+        /* Conectores lineares */
+        .tree li::before, .tree li::after {
+            content: '';
+            position: absolute; 
+            top: 0; 
+            right: 50%;
+            border-top: 2px solid var(--line-color);
+            width: 50%; 
+            height: 20px;
+        }
+        .tree li::after {
+            right: auto; 
+            left: 50%;
+            border-left: 2px solid var(--line-color);
+        }
+
+        /* Removendo conectores das pontas */
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+        .tree li:only-child { 
+            padding-top: 0;
+        }
+        .tree li:first-child::before, .tree li:last-child::after {
+            border: 0 none;
+        }
+        .tree li:last-child::before {
+            border-right: 2px solid var(--line-color);
+            border-radius: 0 5px 0 0;
+        }
+        .tree li:first-child::after {
+            border-radius: 5px 0 0 0;
+        }
+
+        /* Linhas descendentes dos pais */
+        .tree ul ul::before {
+            content: '';
+            position: absolute; 
+            top: 0; 
+            left: 50%;
+            border-left: 2px solid var(--line-color);
+            width: 0; 
+            height: 20px;
+        }
+
+        /* Estilização dos Nós (Caixas) */
+        .node {
+            border: 2px solid transparent;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 150px;
+        }
+
+        /* Cores por Nível */
+        .level-1 { background-color: var(--primary-node); }
+        .level-2 { background-color: var(--secondary-node); color: var(--text-dark); }
+        .level-3 { background-color: var(--tertiary-node); color: var(--text-dark); }
+
+        /* Efeito Hover e Interatividade */
+        .node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .node:active {
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Bem-vindo à Minha Página</h1>
-    </header>
+    <h1>Mapa Conceitual: Desenvolvimento Web</h1>
 
-    <main>
-        <h2>Sobre este ficheiro</h2>
-        <p>Este é um modelo estruturado de um documento HTML5. Contém uma secção de cabeçalho (header), uma área de conteúdo principal (main) e um rodapé (footer).</p>
-        
-        <h2>O que posso fazer a seguir?</h2>
-        <p>Pode modificar este código para adicionar o seu próprio conteúdo, criar novas secções ou alterar as cores e fontes no bloco de estilos (CSS) localizado dentro do <code>&lt;head&gt;</code>.</p>
-        
-        <p>Clique no botão abaixo para ver um exemplo de interação (pode adicionar um link real no atributo <code>href</code>).</p>
-        
-        <a href="#" class="botao">Saber Mais</a>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 - Criado com a assistência do Gemini</p>
-    </footer>
+    <div class="map-container">
+        <div class="tree">
+            <ul>
+                <li>
+                    <div class="node level-1" onclick="alert('Conceito Principal: O ecossistema do desenvolvimento web moderno.')">Dev Web Frontend</div>
+                    <ul>
+                        <li>
+                            <div class="node level-2" onclick="alert('Estrutura: Responsável pelo esqueleto e conteúdo da página.')">HTML</div>
+                            <ul>
+                                <li>
+                                    <div class="node level-3">Tags</div>
+                                </li>
+                                <li>
+                                    <div class="node level-3">Semântica</div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="node level-2" onclick="alert('Estilo: Responsável pelo design, layout e animações.')">CSS</div>
+                            <ul>
+                                <li>
+                                    <div class="node level-3">Flexbox / Grid</div>
+                                </li>
+                                <li>
+                                    <div class="node level-3">Responsividade</div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="node level-2" onclick="alert('Dinamismo: Responsável pela lógica e interatividade do usuário.')">JavaScript</div>
+                            <ul>
+                                <li>
+                                    <div class="node level-3">Manipulação do DOM</div>
+                                </li>
+                                <li>
+                                    <div class="node level-3">APIs</div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 </body>
 </html>
